@@ -104,3 +104,7 @@ class LoginPage:
         # 1. The title element exists on the page, AND
         # 2. Its text is exactly "Products"
         # This is how we confirm login succeeded.
+
+    def is_on_login_page(self):
+        elements = self.driver.find_elements(*self.LOGIN_BUTTON)
+        return bool(elements)
