@@ -18,7 +18,7 @@ class TestLogin:
     def test_locked_out_user(self, driver):
         page = LoginPage(driver)
         page.open()
-        page.login("locked_out", "secret_sauce")
+        page.login("locked_out_user", "secret_sauce")
         error = page.get_error_message()
         assert "locked_out" in error, \
             f"Expected error message to contain 'locked_out', but got: {error}"
