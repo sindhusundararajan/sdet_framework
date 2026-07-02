@@ -25,7 +25,7 @@ def test_get_user_status_code(api_client):
 def test_get_user_data(api_client):
     session, base_url = api_client
     response = session.get(f"{base_url}/users/1")
-    res_status = response.status_code
+    # res_status = response.status_code
     res_values = response.json()
     assert res_values["id"] == 1, \
         f" expected response to have id = 1 but got {res_values['id']}"
@@ -119,4 +119,4 @@ def test_get_user_schema(api_client):
                        "address", "phone", "website", "company"]
     for field in required_fields:
         assert field in data, \
-            f"Missing required field '{field}' in reponse"
+            f"Missing required field '{field}' in response"
