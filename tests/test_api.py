@@ -94,3 +94,13 @@ def test_delete_user(api_base_url):
         f"Expected 200 but got {response.status_code}"
     assert response.json() == {}, \
         f"Expected empty response body but got {response.json()}"
+
+
+def test_get_user_schema(api_base_url):
+    response = requests.get(f"{api_base_url}/users/1")
+    data = response.json()
+    required_fields = ["id", "name", "username", "email",
+                       "address", "phone", "website", "company"]
+    for field in required_fields:
+        assert field in data, \
+            f"Missing required field '{field}' in reponse"
