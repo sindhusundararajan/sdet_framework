@@ -61,3 +61,36 @@ def test_get_all_users(api_base_url):
     length_res_data = len(res_data)
     assert res_status == 200 and length_res_data == 10, \
         f" expected response to have status code 200 and length of the json data is less than 10 but got {res_status} and {length_res_data}"
+
+
+def test_update_user(api_base_url):
+    updated_data = {
+        "id": 1,
+        "name": "Sindhu Updated",
+        "username": "sindhu",
+        "email": "sindhu@test.com"
+    }
+    response = requests.put(f"{api_base_url}/users/1", json=updated_data)
+    res_data = response.json()
+    assert response.status_code == 200, \
+        f"Expected 200 but got {response.status_code}"
+    assert res_data["name"] == "Sindhu Updated", \
+        f"Expected updated name but got {res_data['name']}"
+
+
+def test_patch_user(api_base_url):
+    patch_data = {"name": "Sindhu Patched"}
+    response = requests.patch(f"{api_base_url}/users/1", json=patch_data)
+    res_data = response.json()
+    assert response.status_code == 200, \
+        f"Expected 200 but got {response.status_code}"
+    assert res_data["name"] == "Sindhu Patched", \
+        f"Expected patched name but got {res_data['name']}"
+
+
+def test_delete_user(api_base_url):
+    response = requests.delete(f"{api_base_url}/users/1")
+    assert response.status_code == 200, \
+        f"Expected 200 but got {response.status_code}"
+    assert response.json() == {}, \
+        f"Expected empty response body but got {response.json()}"
