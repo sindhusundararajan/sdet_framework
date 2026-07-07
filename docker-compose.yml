@@ -1,0 +1,27 @@
+#version: '3.8'
+
+services:
+  chrome:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
+    shm_size: '2gb'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  tests:
+    build: .
+    depends_on:
+      chrome:
+        condition: service_healthy
+    environment:
+      - SELENIUM_HUB_URL=http://chrome:4444/wd/hub
+      - DOCKER=true
+    command: >
+      pytest tests/ db_validation/test_db.py -v
+      --html=reports/report.html
+      --self-contained-html
