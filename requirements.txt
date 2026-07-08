@@ -2,5 +2,6 @@ selenium
 pytest
 pytest-html
 pytest-metadata
+pytest-rerunfailures
 webdriver-manager
 requests
